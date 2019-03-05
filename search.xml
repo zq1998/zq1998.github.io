@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>RabbitMQ在Docker下安装</title>
+      <link href="/2019/03/05/RabbitMQ1/"/>
+      <url>/2019/03/05/RabbitMQ1/</url>
+      
+        <content type="html"><![CDATA[<p>RabbitMQ是需要erlang环境的，之前在windows下因为中文目录和目录空格的问题安装了好久，linux下erlang环境配置之后一直找不到erlang环境，故安装于docker容器之中，但是在企业级场景下肯定不能安装在docker中的。</p><h2 id="修改docker源"><a href="#修改docker源" class="headerlink" title="修改docker源"></a>修改docker源</h2><p>修改或新增 /etc/docker/daemon.json，更换为aliyun的源</p><p>vi /etc/docker/daemon.json<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line"><span class="attr">"registry-mirrors"</span>: [<span class="string">"https://pee6w651.mirror.aliyuncs.com"</span>]</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>systemctl restart docker.service</p><h2 id="选取源"><a href="#选取源" class="headerlink" title="选取源"></a>选取源</h2><p><a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a></p><h2 id="拉取RabbitMQ-镜像"><a href="#拉取RabbitMQ-镜像" class="headerlink" title="拉取RabbitMQ 镜像"></a>拉取RabbitMQ 镜像</h2><p>docker pull rabbitmq:3.7.12-management</p><h2 id="查看所有镜像"><a href="#查看所有镜像" class="headerlink" title="查看所有镜像"></a>查看所有镜像</h2><p>docker images</p><h2 id="根据下载的镜像创建和启动容器"><a href="#根据下载的镜像创建和启动容器" class="headerlink" title="根据下载的镜像创建和启动容器"></a>根据下载的镜像创建和启动容器</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="builtin-name">run</span> -d --name rabbitmq3.7.12 -p 5672:5672 -p 15672:15672 -v `pwd`/data:/var/lib/rabbitmq --hostname myRabbit -e <span class="attribute">RABBITMQ_DEFAULT_VHOST</span>=my_vhost  -e <span class="attribute">RABBITMQ_DEFAULT_USER</span>=admin -e <span class="attribute">RABBITMQ_DEFAULT_PASS</span>=123456 24cb552c7c00</span><br></pre></td></tr></table></figure><h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>d 后台运行容器；</p><p>–name 指定容器名；</p><p>-p 指定服务运行的端口（5672：应用访问端口；15672：控制台Web端口号）；</p><p>-v 映射目录或文件；</p><p>–hostname  主机名（RabbitMQ的一个重要注意事项是它根据所谓的 “节点名称” 存储数据，默认为主机名）；</p><p>-e 指定环境变量；（RABBITMQ_DEFAULT_VHOST：默认虚拟机名；RABBITMQ_DEFAULT_USER：默认的用户名；RABBITMQ_DEFAULT_PASS：默认用户名的密码）<br>最后需指定IMAGE ID</p><h2 id="查看docker运行的容器"><a href="#查看docker运行的容器" class="headerlink" title="查看docker运行的容器"></a>查看docker运行的容器</h2><p>docker ps</p><h2 id="web管理端"><a href="#web管理端" class="headerlink" title="web管理端"></a>web管理端</h2><p><a href="http://Server-IP:15672" target="_blank" rel="noopener">http://Server-IP:15672</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> docker </category>
+          
+          <category> 中间件 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 安装 </tag>
+            
+            <tag> 中间件 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>大数据相关组件安装与配置</title>
       <link href="/2019/03/04/hadoop/"/>
       <url>/2019/03/04/hadoop/</url>

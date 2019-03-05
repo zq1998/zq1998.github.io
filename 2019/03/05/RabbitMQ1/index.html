@@ -96,20 +96,25 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="一个小卒">
-<meta property="og:url" content="http://apawn.top/index.html">
+  <meta name="description" content="RabbitMQ是需要erlang环境的，之前在windows下因为中文目录和目录空格的问题安装了好久，linux下erlang环境配置之后一直找不到erlang环境，故安装于docker容器之中，但是在企业级场景下肯定不能安装在docker中的。 修改docker源修改或新增 /etc/docker/daemon.json，更换为aliyun的源 vi /etc/docker/daemon.js">
+<meta name="keywords" content="安装,中间件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RabbitMQ在Docker下安装">
+<meta property="og:url" content="http://apawn.top/2019/03/05/RabbitMQ1/index.html">
 <meta property="og:site_name" content="一个小卒">
+<meta property="og:description" content="RabbitMQ是需要erlang环境的，之前在windows下因为中文目录和目录空格的问题安装了好久，linux下erlang环境配置之后一直找不到erlang环境，故安装于docker容器之中，但是在企业级场景下肯定不能安装在docker中的。 修改docker源修改或新增 /etc/docker/daemon.json，更换为aliyun的源 vi /etc/docker/daemon.js">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-05T04:46:52.392Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一个小卒">
+<meta name="twitter:title" content="RabbitMQ在Docker下安装">
+<meta name="twitter:description" content="RabbitMQ是需要erlang环境的，之前在windows下因为中文目录和目录空格的问题安装了好久，linux下erlang环境配置之后一直找不到erlang环境，故安装于docker容器之中，但是在企业级场景下肯定不能安装在docker中的。 修改docker源修改或新增 /etc/docker/daemon.json，更换为aliyun的源 vi /etc/docker/daemon.js">
 
 
 
 
 
 
-  <link rel="canonical" href="http://apawn.top/">
+  <link rel="canonical" href="http://apawn.top/2019/03/05/RabbitMQ1/">
 
 
 
@@ -119,7 +124,7 @@
   };
 </script>
 
-  <title>一个小卒</title>
+  <title>RabbitMQ在Docker下安装 | 一个小卒</title>
   
 
 
@@ -167,8 +172,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -210,7 +214,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
 
     
     
@@ -306,9 +310,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -340,10 +344,8 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/05/RabbitMQ1/" class="post-title-link" itemprop="url">RabbitMQ在Docker下安装</a>
+          <h2 class="post-title" itemprop="name headline">RabbitMQ在Docker下安装
+
               
             
           </h2>
@@ -445,29 +447,23 @@
       
 
       
-        
-          
-            <p>
-              RabbitMQ是需要erlang环境的，之前在windows下因为中文目录和目录空格的问题安装了好久，linux下erlang环境配置之后一直找不到erlang环境，故安装于docker容器之中，但是在企业级场景下肯定不能安装在docker中的。
-修改docker源修改或新增 /etc/docker/daemon.json，更换为aliyun的源
-vi /etc/docker/daemon.json&#123;"registry-mirrors": ["https://pee6w651.mirror.aliyuncs.com"]&#125;
-systemctl restart docker.service
-选取源https://hub.docker.com/
-拉取RabbitMQ 镜像docker pull rabbitmq:3.7.12-management
-查看所有镜像docker images
-根据下载的镜像创建和启动容器docker run -d --name rabbitmq3.7.12 -p 5672:5672 -p 15672:15672 -v `pwd`/data:/var/lib/rabbitmq --hostname myRabbit -e RABBITMQ_DEFAULT_VHOST=my_vhost  -e RABBITMQ_DEFAULT_USER=ad
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/05/RabbitMQ1/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
+        <p>RabbitMQ是需要erlang环境的，之前在windows下因为中文目录和目录空格的问题安装了好久，linux下erlang环境配置之后一直找不到erlang环境，故安装于docker容器之中，但是在企业级场景下肯定不能安装在docker中的。</p>
+<h2 id="修改docker源"><a href="#修改docker源" class="headerlink" title="修改docker源"></a>修改docker源</h2><p>修改或新增 /etc/docker/daemon.json，更换为aliyun的源</p>
+<p>vi /etc/docker/daemon.json<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line"><span class="attr">"registry-mirrors"</span>: [<span class="string">"https://pee6w651.mirror.aliyuncs.com"</span>]</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>systemctl restart docker.service</p>
+<h2 id="选取源"><a href="#选取源" class="headerlink" title="选取源"></a>选取源</h2><p><a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a></p>
+<h2 id="拉取RabbitMQ-镜像"><a href="#拉取RabbitMQ-镜像" class="headerlink" title="拉取RabbitMQ 镜像"></a>拉取RabbitMQ 镜像</h2><p>docker pull rabbitmq:3.7.12-management</p>
+<h2 id="查看所有镜像"><a href="#查看所有镜像" class="headerlink" title="查看所有镜像"></a>查看所有镜像</h2><p>docker images</p>
+<h2 id="根据下载的镜像创建和启动容器"><a href="#根据下载的镜像创建和启动容器" class="headerlink" title="根据下载的镜像创建和启动容器"></a>根据下载的镜像创建和启动容器</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="builtin-name">run</span> -d --name rabbitmq3.7.12 -p 5672:5672 -p 15672:15672 -v `pwd`/data:/var/lib/rabbitmq --hostname myRabbit -e <span class="attribute">RABBITMQ_DEFAULT_VHOST</span>=my_vhost  -e <span class="attribute">RABBITMQ_DEFAULT_USER</span>=admin -e <span class="attribute">RABBITMQ_DEFAULT_PASS</span>=123456 24cb552c7c00</span><br></pre></td></tr></table></figure>
+<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>d 后台运行容器；</p>
+<p>–name 指定容器名；</p>
+<p>-p 指定服务运行的端口（5672：应用访问端口；15672：控制台Web端口号）；</p>
+<p>-v 映射目录或文件；</p>
+<p>–hostname  主机名（RabbitMQ的一个重要注意事项是它根据所谓的 “节点名称” 存储数据，默认为主机名）；</p>
+<p>-e 指定环境变量；（RABBITMQ_DEFAULT_VHOST：默认虚拟机名；RABBITMQ_DEFAULT_USER：默认的用户名；RABBITMQ_DEFAULT_PASS：默认用户名的密码）<br>最后需指定IMAGE ID</p>
+<h2 id="查看docker运行的容器"><a href="#查看docker运行的容器" class="headerlink" title="查看docker运行的容器"></a>查看docker运行的容器</h2><p>docker ps</p>
+<h2 id="web管理端"><a href="#web管理端" class="headerlink" title="web管理端"></a>web管理端</h2><p><a href="http://Server-IP:15672" target="_blank" rel="noopener">http://Server-IP:15672</a></p>
+
       
     </div>
 
@@ -488,208 +484,38 @@ systemctl restart docker.service
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://apawn.top/2019/03/04/hadoop/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zq">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个小卒">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/04/hadoop/" class="post-title-link" itemprop="url">大数据相关组件安装与配置</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-04 20:00:00 / 修改时间：20:37:24" itemprop="dateCreated datePublished" datetime="2019-03-04T20:00:00+08:00">2019-03-04</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/大数据/" itemprop="url" rel="index"><span itemprop="name">大数据</span></a></span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/安装/" rel="tag"># 安装</a>
           
-
+            <a href="/tags/中间件/" rel="tag"># 中间件</a>
           
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/03/04/hadoop/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/04/hadoop/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          
-            <p>
-              总览Hdfs(hadoop内置)        2.8.5
-Yarn(hadoop内置)        2.8.5
-Zookeeper                    3.4.10
-Hbase                           2.0.3
-Hive                              1.22
-java                                1.8.0_191（11的话browser的hdfs有bug）
-本人操作系统windows10   vmware15  虚拟机为centos7
-映射文件配置Windows下域名映射文件（C:\Windows\System32\drivers\etc\hosts）、
-Centos下域名映射文件（/etc/hosts）
-192.168.10.101 hadoop1192.168.10.102 hadoop2192.168.10.103 hadoop3192.168.10.101 hadoop1.com192.168.10.102 hadoop2.com192.168.10.103 hadoop3.com
-静态域名配置wmware-&gt;编辑-&gt;虚拟网络编辑器-&gt;VMnet8选择NAT模式，DHCP服务取消子网设为192.168.10.0 掩码为255.255.255
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/04/hadoop/#more" rel="contents">
-                阅读全文 &raquo;
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/04/hadoop/" rel="next" title="大数据相关组件安装与配置">
+                <i class="fa fa-chevron-left"></i> 大数据相关组件安装与配置
               </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
+            
+          </div>
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -699,14 +525,22 @@ Centos下域名映射文件（/etc/hosts）
   </article>
 
 
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -726,8 +560,17 @@ Centos下域名映射文件（/etc/hosts）
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -839,6 +682,23 @@ Centos下域名映射文件（/etc/hosts）
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改docker源"><span class="nav-number">1.</span> <span class="nav-text">修改docker源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选取源"><span class="nav-number">2.</span> <span class="nav-text">选取源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拉取RabbitMQ-镜像"><span class="nav-number">3.</span> <span class="nav-text">拉取RabbitMQ 镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看所有镜像"><span class="nav-number">4.</span> <span class="nav-text">查看所有镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据下载的镜像创建和启动容器"><span class="nav-number">5.</span> <span class="nav-text">根据下载的镜像创建和启动容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-number">5.1.</span> <span class="nav-text">说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看docker运行的容器"><span class="nav-number">6.</span> <span class="nav-text">查看docker运行的容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web管理端"><span class="nav-number">7.</span> <span class="nav-text">web管理端</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -961,6 +821,10 @@ Centos下域名映射文件（/etc/hosts）
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
 
   
 
@@ -974,9 +838,28 @@ Centos下域名映射文件（/etc/hosts）
   <script id="dsq-count-scr" src="https://dollar.disqus.com/count.js" async></script>
 
 
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://apawn.top/2019/03/05/RabbitMQ1/";
+    this.page.identifier = "2019/03/05/RabbitMQ1/";
+    this.page.title = 'RabbitMQ在Docker下安装';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dollar.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    loadComments();
+  
+</script>
 
 
 
+
+
+  
 
 
   
