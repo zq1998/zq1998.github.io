@@ -22,9 +22,38 @@
       
         <tags>
             
+            <tag> 中间件 </tag>
+            
             <tag> 安装 </tag>
             
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>RabbitMQ相关</title>
+      <link href="/2019/03/04/RabbitMQ2/"/>
+      <url>/2019/03/04/RabbitMQ2/</url>
+      
+        <content type="html"><![CDATA[<h2 id="MQ好处"><a href="#MQ好处" class="headerlink" title="MQ好处"></a>MQ好处</h2><ul><li>模块间解耦，可独立扩展或修改两边的处理过程，只要确保遵循同样的接口规范即可</li><li>确保数据被处理完，试想如果业务逻辑正在处理，突然断电了，那么数据会丢人，需要人为补偿。但MQ的话，可以选择手动告诉队列删除。</li><li>削峰</li><li>异步通信</li><li>顺序，注意kafka只保证一个partition内的消息有序<h2 id="RabbitMQ中virtualhost"><a href="#RabbitMQ中virtualhost" class="headerlink" title="RabbitMQ中virtualhost"></a>RabbitMQ中virtualhost</h2>不同的用户有不同的virtualhost，相互隔离。<br>不同的virtualhost可以有相同的<h2 id="队列和消息的区别"><a href="#队列和消息的区别" class="headerlink" title="队列和消息的区别"></a>队列和消息的区别</h2></li><li>队列存放消息的集合</li><li>消息指投递的数据<h2 id="队列形式"><a href="#队列形式" class="headerlink" title="队列形式"></a>队列形式</h2><h3 id="点对点-简单-队列"><a href="#点对点-简单-队列" class="headerlink" title="点对点(简单)队列"></a>点对点(简单)队列</h3><h4 id="一对一模式"><a href="#一对一模式" class="headerlink" title="一对一模式"></a>一对一模式</h4>一个生产者投递消息给队列，只能允许一个消费者消费，消费者集群的话，会均摊消费</li><li>自动应答<br>不在乎消费者对消息是否成功，直接告诉队列删除</li><li>手动应答<br>消费者手动返回ack队列是否删除消息，方便失败重试</li><li>均摊消费的弊端<br>消费者处理的效率不等，均摊就是一种不公正<h4 id="工作队列-公平型队列"><a href="#工作队列-公平型队列" class="headerlink" title="工作队列(公平型队列)"></a>工作队列(公平型队列)</h4>采用手动应答模式，队列收到ack后才会发送下一个消息<br>还是一种低级队列，队列服务器以推送或拉取消息给消费者进行消费<h3 id="高级队列"><a href="#高级队列" class="headerlink" title="高级队列"></a>高级队列</h3></li><li>生产者传递消息给交换机，交换机根据路由策略RountingKey转发给不同的队列服务器中存放，每个队列服务器以推送或拉取消息给其消费者进行消费<h4 id="发布订阅"><a href="#发布订阅" class="headerlink" title="发布订阅"></a>发布订阅</h4></li><li>消息中间件的发布订阅指的是一个消息给多个消费者消费，消费者消费的消息是一样的</li><li>没有队列绑定路由的话，经由路由的消息会消失，换句话说，交换机只做转发，不做缓存，但队列会缓存</li><li>fanout模式<h4 id="RountingKey-路由模式"><a href="#RountingKey-路由模式" class="headerlink" title="RountingKey(路由模式)"></a>RountingKey(路由模式)</h4>是对发布订阅模式的改进</li><li>direct模式</li><li>将routingKey值传入，队列服务器需绑定routingKey值，只有相符才能收到消息(根据路由键分发到不同队列)<h4 id="topic-通配符模式"><a href="#topic-通配符模式" class="headerlink" title="topic(通配符模式)"></a>topic(通配符模式)</h4></li><li>*匹配一个词，#匹配多个词 如x.y.z|x.y.#<h2 id="RabbitMQ消息确认机制"><a href="#RabbitMQ消息确认机制" class="headerlink" title="RabbitMQ消息确认机制"></a>RabbitMQ消息确认机制</h2><h3 id="消费者机制"><a href="#消费者机制" class="headerlink" title="消费者机制"></a>消费者机制</h3>消费者和队列保持长连接(推送或拉取消息)，修改为手动应答<h3 id="生产者问题"><a href="#生产者问题" class="headerlink" title="生产者问题"></a>生产者问题</h3>生产者发送消息后，出现问题，但消息成功发出去了，这对于业务逻辑来说是不能容忍的</li><li>AMQP事务机制<br>txSelect  将当前channel设置为transaction模式txCommit  提交当前事务<br>txRollback  事务回滚<br>流程：<br>客户端发送给服务器Tx.Select(开启事务模式)<br>服务器端返回Tx.Select-Ok（开启事务模式ok）<br>推送消息<br>客户端发送给事务提交Tx.Commit<br>服务器端返回Tx.Commit-Ok</li><li>confirm模式<br>实现RabbitTemplate.confirmCallback接口，重写confirm方法<br>可以配置重试次数(防止死循环，实在不行人工补偿)<h3 id="消费者异常"><a href="#消费者异常" class="headerlink" title="消费者异常"></a>消费者异常</h3></li><li>默认情况下消费者程序异常，自动实现补偿机制(重试)，是队列服务器的请求<br>原理是@RabbitListener注解，aop异常通知实现补偿机制，消息会在服务器上一直存放</li><li>一直重试占用资源，需要修改配置文件——最大重复次数、重试间隔，队列会放弃这个消息</li><li>业务逻辑的错误无需重试(需要迭代版本)，用日志记录以，定时任务或人工进行补偿</li><li>接口因为网络问题延迟，支付肯定要做重试<h2 id="死信队列-备胎"><a href="#死信队列-备胎" class="headerlink" title="死信队列(备胎)"></a>死信队列(备胎)</h2></li><li>普通：生产者-&gt;交换机-&gt;队列-&gt;消费者</li><li>异常：1 邮件队列已满 2 消费者拒绝消息 3 消息过期</li><li>队列-&gt;死信交换机-&gt;死信队列-&gt;死信消费者<h2 id="RabbitMQ解决分布式事务"><a href="#RabbitMQ解决分布式事务" class="headerlink" title="RabbitMQ解决分布式事务"></a>RabbitMQ解决分布式事务</h2><h3 id="原理：最终一致性"><a href="#原理：最终一致性" class="headerlink" title="原理：最终一致性"></a>原理：最终一致性</h3></li><li>确认生产者一定要将数据投递到MQ服务器中（采用MQ消息confirm机制）</li><li>MQ消费者消息能够正确消费消息，采用手动ACK模式(注意重试幂等性问题)，生产者不需要回滚</li><li>如何保证第一个事务先执行(情形即投递消息成功，消费者消费成功，但生产者执行之后的逻辑出错要回滚)。采用补偿机制，在创建一个补偿者进行监听，如果失败，进行补偿。<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="RabbitMQ宕机，会丢是吗？"><a href="#RabbitMQ宕机，会丢是吗？" class="headerlink" title="RabbitMQ宕机，会丢是吗？"></a>RabbitMQ宕机，会丢是吗？</h3>支持持久化，绑定队列的时候去源码中找一下字段已设置就行了<h3 id="消费者幂等性"><a href="#消费者幂等性" class="headerlink" title="消费者幂等性"></a>消费者幂等性</h3>MQ重试机制，使用全局消息ID，如果之前消费完就不会消费了，再加上间隔时间<br>RabbitMQ需要自己手动设置消息ID</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 中间件 </category>
+          
+          <category> 消息队列 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
             <tag> 中间件 </tag>
+            
+            <tag> 总结 </tag>
             
         </tags>
       
