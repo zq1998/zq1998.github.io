@@ -323,6 +323,206 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://apawn.top/2019/03/25/RabbitMQ2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zq">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个小卒">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/25/RabbitMQ2/" class="post-title-link" itemprop="url">RabbitMQ相关</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-25 20:00:00 / 修改时间：21:59:07" itemprop="dateCreated datePublished" datetime="2019-03-25T20:00:00+08:00">2019-03-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/消息队列/" itemprop="url" rel="index"><span itemprop="name">消息队列</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/03/25/RabbitMQ2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/25/RabbitMQ2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              MQ好处
+模块间解耦，可独立扩展或修改两边的处理过程，只要确保遵循同样的接口规范即可
+确保数据被处理完，试想如果业务逻辑正在处理，突然断电了，那么数据会丢人，需要人为补偿。但MQ的话，可以选择手动告诉队列删除。
+削峰
+异步通信
+顺序，注意kafka只保证一个partition内的消息有序RabbitMQ中virtualhost不同的用户有不同的virtualhost，相互隔离。不同的virtualhost可以有相同的队列和消息的区别
+队列存放消息的集合
+消息指投递的数据队列形式点对点(简单)队列一对一模式一个生产者投递消息给队列，只能允许一个消费者消费，消费者集群的话，会均摊消费
+自动应答不在乎消费者对消息是否成功，直接告诉队列删除
+手动应答消费者手动返回ack队列是否删除消息，方便失败重试
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/25/RabbitMQ2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://apawn.top/2019/03/05/RabbitMQ1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -453,231 +653,13 @@
 vi /etc/docker/daemon.json&#123;"registry-mirrors": ["https://pee6w651.mirror.aliyuncs.com"]&#125;
 systemctl restart docker.service
 选取源https://hub.docker.com/
-拉取RabbitMQ 镜像docker pull rabbitmq:3.7.12-management
-查看所有镜像docker images
-根据下载的镜像创建和启动容器docker run -d --name rabbitmq3.7.12 -p 5672:5672 -p 15672:15672 -v `pwd`/data:/var/lib/rabbitmq --hostname myRabbit -e RABBITMQ_DEFAULT_VHOST=my_vhost  -e RABBITMQ_DEFAULT_USER=ad
+拉取RabbitMQ 镜像do
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/03/05/RabbitMQ1/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://apawn.top/2019/03/04/RabbitMQ2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zq">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个小卒">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/04/RabbitMQ2/" class="post-title-link" itemprop="url">RabbitMQ相关</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-04 20:00:00" itemprop="dateCreated datePublished" datetime="2019-03-04T20:00:00+08:00">2019-03-04</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-25 21:45:58" itemprop="dateModified" datetime="2019-03-25T21:45:58+08:00">2019-03-25</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/中间件/消息队列/" itemprop="url" rel="index"><span itemprop="name">消息队列</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/03/04/RabbitMQ2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/04/RabbitMQ2/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              MQ好处
-模块间解耦，可独立扩展或修改两边的处理过程，只要确保遵循同样的接口规范即可
-确保数据被处理完，试想如果业务逻辑正在处理，突然断电了，那么数据会丢人，需要人为补偿。但MQ的话，可以选择手动告诉队列删除。
-削峰
-异步通信
-顺序，注意kafka只保证一个partition内的消息有序RabbitMQ中virtualhost不同的用户有不同的virtualhost，相互隔离。不同的virtualhost可以有相同的队列和消息的区别
-队列存放消息的集合
-消息指投递的数据队列形式点对点(简单)队列一对一模式一个生产者投递消息给队列，只能允许一个消费者消费，消费者集群的话，会均摊消费
-自动应答不在乎消费者对消息是否成功，直接告诉队列删除
-手动应答消费者手动返回ack队列是否删除消息，方便失败重试
-均摊消费的弊端消费者处理的效率不等，均摊就是一种不公正工作队列(公平型队列)采用手动应答模式，队列收到ack后才会发送下一个消息还是一种低级队列，队列服务器以推送或拉取消息给消费者进行消费高级队列
-生产者传递消息给交换机，交换机根据路由策略RountingKey转发给不同的队列服务器中存放，每个队列服务器以推送或拉取消息给其消费者进行消费发布订阅
-消息中间件的发布订阅指的是一个消息给多个消费者消费，消费者消费的消息是一样的
-没有队列绑定路由的话，经由路由的消息会消失，换句话说，交换机只做转发，
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/04/RabbitMQ2/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -863,9 +845,7 @@ Hive                              1.22
 java                                1.8.0_191（11的话browser的hdfs有bug）
 本人操作系统windows10   vmware15  虚拟机为centos7
 映射文件配置Windows下域名映射文件（C:\Windows\System32\drivers\etc\hosts）、
-Centos下域名映射文件（/etc/hosts）
-192.168.10.101 hadoop1192.168.10.102 hadoop2192.168.10.103 hadoop3192.168.10.101 hadoop1.com192.168.10.102 hadoop2.com192.168.10.103 hadoop3.com
-静态域名配置wmware-&gt;编辑-&gt;虚拟网络编辑器-&gt;VMnet8选择NAT模式，DHCP服务取消子网设为192.168.10.0 掩码为255.255.255
+Centos下域名映
               ...
             </p>
           <!--noindex-->
